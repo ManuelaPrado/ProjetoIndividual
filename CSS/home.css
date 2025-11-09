@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+  
+  * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    
+    body {
+      font-family: 'Bebas Neue', sans-serif;
+      background-color: #000;
+      color: #fff;
+      display: flex;
+    }
+   
+
+   
+    header {
+      position: fixed;      
+      left: 0;
+      top: 0;
+      height: 100%;        
+      width: 12.5%;         
+      background-color: #000;
+      border-right: 4px solid #FF6600;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-top: 3%;
+    }
+
+
+    nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    nav a {
+      color: #FF6600;
+      text-decoration: none;
+      font-size: 125%;
+      font-family: "lora", serif;
+      margin: 22% 0 0%;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: #fff;
+      text-shadow: 0 0 10px #FF6600;
+    
+    }
+
+    .atual{
+      color:  #fff;
+      background: #282727;
+      border-radius: 8px;
+      padding: 3%  6%;
+    }
+
+    .vertical-title {
+      position: absolute;
+      margin-top: 1%;
+      right: 2%;
+      font-family: "lora", serif;
+      font-size: 440%;
+      color: #FF6600;
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      letter-spacing: 10px;
+    }
+
+    .login {
+      background-color: #FF6600;
+      color: #fff;
+      border: none;
+      font-family: "lora", serif;
+      padding: 8% 25%;
+      border-radius: 10px;
+      font-size: 100%;
+      cursor: pointer;
+      margin-top: 8%;
+      transition: 0.3s;
+    }
+
+    .login:hover {
+      background-color: #ffa033;
+      color: #000000;
+      box-shadow: 0 0 15px #FF6600;
+    }
+
+    .cadastro{
+        margin-top: 155%;
+    }
+
+    .bolavoley{
+        width: 100%;
+        margin-left: 12.5%;
+          position: fixed;
+   
+  
+
+ 
+        
+    }
+    
+    
