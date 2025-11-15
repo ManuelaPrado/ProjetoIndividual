@@ -421,7 +421,7 @@ footer {
     padding: 50px;
     background-color: #FF6600;
     color: #000000;
-    border-radius: 5px;
+    border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
     font-size: 20px;
@@ -461,7 +461,38 @@ footer {
 
  .containerL{
         position: absolute;
-       margin: 100px -250px;
+       margin: 180px -250px;
     }
 
-.cardL
+ .cardL{
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    height: 300px;
+    padding: 45px;
+    background-color: #FF6600;
+    color: #000000;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 20px;
+    font-family: "lora", serif,;
+    }
+
+    .heroL {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    width: 120%;
+    height: 190vh;
+    overflow: hidden;
+   margin-top: 900px;
+}
+
+.imagemheroL {
+    width: 100%;
+    height: 92vh;
+    margin-top: -167.5px;
+    border-bottom: solid 4px #e87400;
+}
