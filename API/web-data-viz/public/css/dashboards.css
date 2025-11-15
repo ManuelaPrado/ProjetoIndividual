@@ -115,10 +115,12 @@ body {
 }
 */
 
+
+---
 /* pagina graficos */
 
 .dash-header {
-  background-color: #000000;
+  background-color: #ffffff;
 }
 
 .dash {
@@ -130,19 +132,19 @@ body {
   height: 100vh;
   overflow: auto;
 }
-
+/*
 .area-parametros-alerta {
-  /* border: 2px solid pink; */
+  /* border: 2px solid pink; *
   display: flex;
   flex-direction: column;
   width: 70%;
   margin: auto;
   margin-top: 10px;
-  background-color: #000000;
+  background-color: #ff0000;
 }
 
 .area-parametros-alerta .titulo-legenda {
-  color: white;
+  color: rgb(184, 5, 5);
   font-weight: 600;
   width: fit-content;
   margin: 10px 20px;
@@ -152,7 +154,7 @@ body {
   display: flex;
   width: 100%;
 }
-
+*/
 .item-regua {
   width: 20%;
   text-align: center;
@@ -172,35 +174,57 @@ body {
   font-weight: 800;
 }
 
-.perigo-frio {
-  background-color: #5c6bc0;
+.resposta-errada {
+  background-color: #ff4c4c;
 }
 
-.perigo-quente {
-  background-color: #ff7043;
-}
-
-.alerta-frio {
-  background-color: #42a5f5;
-}
-
-.alerta-quente {
-  background-color: #ffee58;
+.resposta-certa {
+  background-color: #3dff33;
 }
 
 .ideal {
   background-color: #9ccc65;
 }
 
-.cards {
+.car {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  height: 450px;
-  width: 100%;
-  align-items: center;
   color: white;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 30px;
 }
+
+.cartao {
+    background: #fff;
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(15, 20, 15, 0.04);
+    width:200px ;
+}
+
+.cartao p {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.cartao h2 {
+margin: 0 35%;
+    color: rgb(251, 36, 36);
+    font-size: 28px;
+}
+
+.cartao .quatro {
+    color: #00796b;
+    font-size: 28px;
+}
+
+
 
 .card-aquario {
   margin: 2%;
@@ -331,7 +355,9 @@ canvas {
   height: 100% !important;
 }
 
-/* PAGINA DOS GRÁFICOS 2023 */
+*/
+
+/*PAGINA DOS GRÁFICOS*/
 
 .janela {
   display: flex;
@@ -354,6 +380,7 @@ canvas {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  border-radius: 90px;
   border-right: 3px solid #ff7043;
   background-color: #000000;
 }
@@ -386,10 +413,11 @@ canvas {
   font-size: 1.2rem;
 }
 
+/*
 .hello h3 span {
   font-weight: 800;
 }
-
+*/
 .btn-nav {
   width: 60%;
   color: white;
