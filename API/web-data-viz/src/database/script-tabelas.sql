@@ -5,7 +5,7 @@ CREATE TABLE usuario (
   idusuario int PRIMARY KEY auto_increment,
   nome VARCHAR(100) NOT NULL,
   email VARCHAR(150) NOT NULL UNIQUE,
-  senha CHAR(10) NOT NULL
+  senha varCHAR(20) NOT NULL
 );
 
 select *from usuario;
