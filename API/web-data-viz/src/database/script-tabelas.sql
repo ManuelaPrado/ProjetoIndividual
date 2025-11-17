@@ -1,3 +1,70 @@
+-- create database sonhoemjogo;
+-- use sonhoemjogo;
+-- drop database sonhoemjogo;
+CREATE TABLE usuario (
+  idusuario int PRIMARY KEY auto_increment,
+  nome VARCHAR(100) NOT NULL,
+  email VARCHAR(150) NOT NULL UNIQUE,
+  senha CHAR(10) NOT NULL
+);
+
+select *from usuario;
+
+CREATE TABLE pergunta (
+  idpergunta INT PRIMARY KEY AUTO_INCREMENT ,
+  enunciado VARCHAR(500)
+);
+
+CREATE TABLE opcao (
+  idopcao INT PRIMARY KEY AUTO_INCREMENT,
+  id_pergunta INT,
+  opcao VARCHAR(300),
+  correta INT, -- 1 = correta, 0 = errada
+  FOREIGN KEY (id_pergunta) REFERENCES pergunta(idpergunta)
+);
+
+CREATE TABLE resposta (
+  idresposta INT PRIMARY KEY AUTO_INCREMENT,
+  id_usuario INT,
+  id_pergunta INT,
+  id_opcao INT,
+  acertou INT, -- 1 = correto, 0 = incorreto
+  data_resposta DATETIME default current_timestamp ,
+  FOREIGN KEY (id_usuario) REFERENCES usuario(idusuario),
+  FOREIGN KEY (id_pergunta) REFERENCES pergunta(idpergunta),
+  FOREIGN KEY (id_opcao) REFERENCES opcao(idopcao)
+);
+
+INSERT INTO usuario (nome, email, senha)VALUES 
+('Bubu', 'bubu@email.com', '1234');
+
+insert into pergunta (enunciado) value 
+('Quantos jogadores entram em quadra?');
+
+select* from pergunta;
+
+insert into opcao (id_pergunta, opcao, correta) value 
+(1,'5',0),
+(1,'7',0),
+(1,'6',1);
+
+insert into resposta (id_usuario, id_pergunta, id_opcao, acertou) value
+(1,1,1,0);
+
+
+SELECT 
+    u.nome,
+    SUM(r.acertou) AS acertos,
+    COUNT(*) - SUM(r.acertou) AS erros
+FROM resposta r
+JOIN usuario u ON u.idusuario = r.id_usuario
+GROUP BY u.idusuario, u.nome;
+
+
+   
+
+
+/*
 -- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
 -- Você precisa executar os comandos no banco de dados para criar as tabelas,
 -- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
@@ -59,4 +126,4 @@ create table medida (
 insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
 insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
 insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
+insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);*/
