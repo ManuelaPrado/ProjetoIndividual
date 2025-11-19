@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" />
 </head>
 
-<body onload="listar()">
+<body >
   <!--header inicio-->
   <div class="header">
     <div class="container">
@@ -85,7 +85,7 @@
 <script>
 
   // Array para armazenar empresas cadastradas para validação de código de ativação 
-  let listaEmpresasCadastradas = [];
+ var vtemail=[]
 
   function cadastrar() {
 
@@ -104,6 +104,7 @@
   if (senhaVar == "") erros +=" A senha é obrigatória. <br>";
   if (confirmacaoSenhaVar == "") erros +=" A confirmação de senha é obrigatória.<br>";
   if (senhaVar != confirmacaoSenhaVar) erros +=" As senhas não coincidem.<br>"; 
+  if(vtemail.includes(emailVar)) erros+='Esse email ja foi cadastrado'
       if (erros!=''){
     cardErro.style.display = "block";
       mensagem_erro.innerHTML =
@@ -113,8 +114,9 @@
       return false;
      
     } else {
+      vtemail.push(emailVar)
        window.location.href = 'dashboard/dashboard.html'
-      setInterval(sumirMensagem, 2000);
+      ;
     }
 
     // Verificando se o código de ativação é de alguma empresa cadastrada
