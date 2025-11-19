@@ -30,27 +30,27 @@
     </div>
   </div>
 
-
+<div class="login">
+    <div class="alerta_erroL">
+      <div class="card_erroL" id="cardErro">
+        <span id="mensagem_erro"></span>
+      </div>
+    </div>
 
  <section class="heroL">
         <img class="imagemheroL" src="imagem/cadastro.jpg"
             alt="">
     </section>
 
-  <div class="login">
-    <div class="alerta_erro">
-      <div class="card_erro" id="cardErro">
-        <span id="mensagem_erro"></span>
-      </div>
-    </div>
+ 
     <div class="container">
       <div class="card card-cadastro">
         <h2>Entrar</h2>
         <div class="formulario">
    
           <div class="campo">
-            <span>Nome:</span>
-            <input id="nome_input" type="text" placeholder="Seu nome" />
+            <span>Email:</span>
+            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
           </div>
           <div class="campo">
             <span>Senha:</span>
@@ -78,14 +78,16 @@
 <script>
 
     function entrar() {
-        aguardar();
 
         var emailVar = email_input.value;
         var senhaVar = senha_input.value;
 
+        var erros=''
+
         if (emailVar == "" || senhaVar == "") {
             cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+           erros+= "Não pode haver nehum campo em branco";
+           mensagem_erro.innerHTML=erros
             finalizarAguardar();
             return false;
         }
