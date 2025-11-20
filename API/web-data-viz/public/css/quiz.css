@@ -1,28 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&display=swap');
+/* ---------- Fonte ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-  * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-
-body {
-    overflow-x: hidden;
-     font-family: "lora", serif;
-    background-color: #000000;
+:root {
+  --primary-brand-color: #ED145B;
+  --accent: #ff7043;
+  --success-dark: #095c36;
+  --success-light: #9dd3ba;
+  --warning-dark: #705400;
+  --warning-light: #fdebb3;
+  --danger-dark: #990c19;
+  --danger-light: #f0c1c6;
+  --new-gray: #CCCCCC;
+  --bg: #000000;
+  --card-bg: #0f0f0f;
+  --text: #E8E8E8;
 }
 
-*/
-
-
-
-.header-left a {
-  text-decoration: none;
-  color: white;
-
+/* ---------- Reset básico ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+  font-family: "Lora", serif;
+  background-color: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---------- Layout principal ---------- */
 .header-left {
   position: fixed;
   top: 0;
@@ -33,23 +43,37 @@ body {
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  border-radius: 90px;
-  border-right: 3px solid #ff7043;
+  padding: 20px 8px;
+  border-right: 3px solid var(--accent);
   background-color: #000000;
+  gap: 8px;
+  z-index: 10;
 }
 
+.janela { /* container geral (se existir no HTML) */
+  display: block;
+}
+
+/* ajuste da área direita onde ficará o quiz */
 .dash-right {
-  display: flex;
-  width: 70%;
-  height: fit-content;
-  background-color: #000000;
   position: relative;
-  top: 0;
-  left: 25%;
-  height: 100vh;
+  left: 20%;
+  width: 80%;
+  min-height: 100vh;
+  padding: 40px;
   overflow: auto;
+  background: transparent;
 }
 
+/* ---------- Menu lateral - itens ---------- */
+.header-left a {
+  text-decoration: none;
+  color: var(--text);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 .hello {
   width: 100%;
@@ -60,135 +84,180 @@ body {
 .hello h3 {
   color: #fc9250;
   font-weight: 300;
-  font-size: 1.2rem;
-
+  font-size: 1.05rem;
 }
 
-.btn-nav {
-  width: 60%;
-  color: rgb(255, 255, 255);
-  background-color: #fb521e;
-  border:3PX solid #ffffff;
-  border-radius: 5px;
+/* botões laterais */
+.btn-nav, .btn-nav-white, .btn-logout {
+  width: 70%;
+  border-radius: 8px;
   text-align: center;
-  padding: 2% 5%;
-  margin: 40px;
-}
-
-.btn-nav-white {
-  width: 60%;
-  background-color: #ffffff;
-  border: 3px solid #ff7043;
-  border-radius: 5px;
-  text-align: center;
-  padding: 2% 5%;
-}
-
-.btn-nav-white h3 {
-  color: #ff7043;
-  padding: 0;
-  margin: 0;
-}
-.btn-logout {
-  width: 25%;
-  background-color: #ff7043;
-  color: white;
-  border-radius: 20px;
-  text-align: center;
-  padding: 10px 15px;
-  margin-bottom: 50px;
+  padding: 10px 12px;
   cursor: pointer;
 }
 
-
-/* Não usar pure white or pure black: https://uxplanet.org/basicdesign-never-use-pure-black-in-typography-36138a3327a6 */
-/* The 4-point grid system: https://medium.com/@sainzkike/controlling-spacing-in-design-systems-multiple-spacing-9bf1afec87f */
-
-:root {
-    --primary-brand-color: #ED145B;
-    --secondary-brand-color: #0762C8;
-    --success: #198754;
-    --success-dark: #095c36;
-    --success-light: #9dd3ba;
-    --warning: #ffc107;
-    --warning-dark: #705400;
-    --warning-light: #fdebb3;
-    --danger: #dc3545;
-    --danger-dark: #990c19;
-    --danger-light: #f0c1c6;
-    --new-gray: #CCCCCC;
-    --new-black: #212427;
-    --new-white: #E8E8E8;
+.btn-nav {
+  color: #ffffff;
+  background-color: #fb521e;
+  border: 2px solid #ffffff;
 }
 
-
-
-button {
-    font-family: monospace;
-    font-weight: bold;
- 
+.btn-nav-white {
+  background-color: #ffffff;
+  border: 2px solid var(--accent);
 }
 
-.flex-colunar {
-    display: flex;
-    flex-direction: column;
+.btn-nav-white h3 {
+  color: var(--accent);
+  margin: 0;
 }
 
-.width-fit-content {
-    width: fit-content;
+.btn-logout {
+  width: 60%;
+  background-color: var(--accent);
+  color: white;
+  border-radius: 20px;
+  padding: 8px 12px;
 }
 
-.border-primary {
-    border: 3px solid var(--primary-brand-color);
-}
-
-.border-secondary {
-    border: 3px solid var(--secondary-brand-color);
-}
-
-.padding-8 {
-    padding: 8px;
-}
-
-.text-bold {
-    font-weight: bold;
-}
+/* ---------- Utilitários e tokens ---------- */
+.flex-colunar { display: flex; flex-direction: column; gap: 8px; }
+.width-fit-content { width: fit-content; }
+.padding-8 { padding: 8px; }
+.border-primary { border: 3px solid var(--primary-brand-color); }
+.border-secondary { border: 3px solid #0762C8; }
+.text-bold { font-weight: bold; }
 
 .text-success-with-bg {
-    color: var(--success-dark);
-    background-color: var(--success-light);
+  color: var(--success-dark);
+  background-color: var(--success-light);
+  padding: 8px;
+  border-radius: 6px;
 }
-
 .text-warning-with-bg {
-    color: var(--warning-dark);
-    background-color: var(--warning-light);
+  color: var(--warning-dark);
+  background-color: var(--warning-light);
+  padding: 8px;
+  border-radius: 6px;
 }
-
 .text-danger-with-bg {
-    color: var(--danger-dark);
-    background-color: var(--danger-light);
+  color: var(--danger-dark);
+  background-color: var(--danger-light);
+  padding: 8px;
+  border-radius: 6px;
+}
+.text-new-gray { color: var(--new-gray); }
+
+/* ---------- Área do quiz (centro/direita) ---------- */
+#pontuacaoEJogo {
+  margin: 80px 40px;
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 
-.text-new-gray {
-    color: var(--new-gray);
+/* botões grandes de iniciar quiz */
+#pontuacaoEJogo > button {
+  font-family: "Lora", serif;
+  font-size: 18px;
+  border-radius: 20px;
+  color: var(--text);
+  background-color: var(--accent);
+  border: none;
+  padding: 28px;
+  min-width: 260px;
+  min-height: 140px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6);
 }
 
-#pontuacaoEJogo{
-    margin: 140px 410px;
+/* área de pontuação e jogo */
+#pontuacao {
+  display: none; /* aparece quando inicia o quiz */
+  gap: 16px;
+  align-items: flex-start;
 }
 
-#pontuacaoEJogo button{
-     font-family: "lora", serif;
-     font-size: 20px;
-     color: #E8E8E8;
+#pontuacao .flex-colunar {
+  gap: 8px;
 }
 
-a{
-    text-decoration: none;
-
+/* cartão do jogo */
+#jogo {
+  display: none; /* aparece ao iniciar */
+  width: 700px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.6);
+  border: 2px solid rgba(255,255,255,0.03);
 }
 
-h3{
-    color: #ffffff;
+/* info da questão */
+#infoQuestao { font-size: 0.95rem; color: var(--new-gray); }
+#perguntaDaQuestaoAtual { margin-top: 8px; margin-bottom: 12px; }
+#spanQuestaoExibida { font-weight: 700; font-size: 1.1rem; }
+
+/* alternativas */
+#opcoes { display: flex; flex-direction: column; gap: 10px; margin: 12px 0; }
+#opcoes span { display: flex; align-items: center; gap: 10px; }
+
+/* esconder o input radio padrão e estilizar o label */
+#opcoes input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
 }
+#opcoes input[type="radio"]:checked::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent);
+  margin: 3px;
+}
+
+/* labels como botões */
+#opcoes label.option {
+  display: inline-block;
+  padding: 10px 12px;
+  border-radius: 8px;
+  min-width: 420px;
+  cursor: pointer;
+  transition: background .15s ease, transform .08s ease;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.03);
+}
+#opcoes label.option:hover { transform: translateY(-2px); }
+
+/* botões de ação */
+#botoes { display: flex; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+#botoes button {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: var(--accent);
+  color: white;
+  font-weight: 700;
+}
+#botoes button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* estado final */
+#pontuacaoFinalJogo { margin-top: 8px; display: flex; gap: 12px; align-items: center; }
+
+/* utilidades pequenas */
+.hidden { display: none !important; }
+.center { display:flex; justify-content:center; align-items:center; }
 
