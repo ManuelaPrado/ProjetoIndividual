@@ -7,14 +7,6 @@
       box-sizing: border-box;
     }
 
-            ::-webkit-scrollbar {
-    width: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-    background-color:#fb521e;
-    border-radius: 10px;
-}
 
 body {
     overflow-x: hidden;
@@ -390,7 +382,6 @@ canvas {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 999;
   height: 100vh;
   width: 20%;
   display: flex;
@@ -412,10 +403,6 @@ canvas {
   left: 25%;
   height: 100vh;
   overflow: auto;
-}
-
-.header-left h1 {
-  color: #32b9cd;
 }
 
 .hello {
@@ -477,3 +464,4 @@ canvas {
   margin-bottom: 10px;
   cursor: pointer;
 }
+
