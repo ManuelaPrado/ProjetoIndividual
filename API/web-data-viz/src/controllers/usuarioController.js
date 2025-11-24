@@ -1,4 +1,5 @@
 var usuarioModel = require("../models/usuarioModel");
+const { cadastrar } = require("./aquarioController");
 
 
 function autenticar(req, res) {
@@ -9,14 +10,25 @@ function autenticar(req, res) {
     if (!senha) return res.status(400).send("Sua senha está undefined!");
 
     usuarioModel.autenticar(email, senha)
-        .then(resultado => {
-            if (resultado.length === 1) {
-                res.json({
-                    id: resultado[0].idusuario,
-                    nome: resultado[0].nome,
-                    email: resultado[0].email
-                });
-            } else if (resultado.length === 0) {
+    .then(
+                function (resultadoAutenticar) {
+                    console.log(`\nResultados encontrados: ${resultadoAutenticar.length}`);
+                    console.log(`Resultados: ${JSON.stringify(resultadoAutenticar)}`); // transforma JSON em String
+
+                    if (resultadoAutenticar.length == 1) {
+                        console.log(resultadoAutenticar);
+
+                        usuarioModel.autenticar(email, senha)
+                            .then( function (resultadoAutenticar) {
+                                if (
+                                    resultadoAutenticar.length > 0) {
+                                    res.json({
+                                        idusuario: resultadoAutenticar[0].idusuario,
+                                        email: resultadoAutenticar[0].email,
+                                        nome: resultadoAutenticar[0].nome,
+                                        senha: resultadoAutenticar[0].senha,
+                }); 
+            } else if (resultadoAutenticar.length === 0) {
                 res.status(403).send("Email e/ou senha inválido(s)");
             } else {
                 res.status(403).send("Mais de um usuário com o mesmo login e senha!");
@@ -25,8 +37,10 @@ function autenticar(req, res) {
         .catch(erro => {
             console.error("Erro ao autenticar:", erro);
             res.status(500).send(erro.sqlMessage);
-        });
+        }
+    );
 }
+                
 
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
@@ -46,8 +60,8 @@ function cadastrar(req, res) {
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
         usuarioModel.cadastrar(nome, email, senha)
             .then(
-                function (resultado) {
-                    res.json(resultado);
+                function (resultadoAutenticar) {
+                    res.json(resultadoAutenticar);
                 }
             ).catch(
                 function (erro) {
@@ -60,7 +74,8 @@ function cadastrar(req, res) {
                 }
             );
     }
-}
+}} )}
+
 
 module.exports = {
     autenticar,

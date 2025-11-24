@@ -6,7 +6,7 @@
     <title>Sonho em Jogo - Login</title>
     <link rel="icon" href="imagem/sigla.png" type="image/x-icon">
     <link rel="stylesheet" href="css/login.css">
-
+  <script src="./js/sessao.js"></script>
 </head>
 <body>
 
@@ -115,7 +115,7 @@
                     sessionStorage.ID_USUARIO = json.idusuario;
 
                     setTimeout(function () {
-                        window.location = "./dashboard/cards.html";
+                        window.location = "./dashboard/dashboard.html";
                     }, 1000); // apenas para exibir o loading
 
                 });
