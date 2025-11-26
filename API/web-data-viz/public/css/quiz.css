@@ -136,6 +136,10 @@ html, body {
   cursor: pointer;
 }
 
+.btn-logout a{
+  color: white;
+}
+
 /* ---------- Utilitários e tokens ---------- */
 .flex-colunar { 
   display: flex; 

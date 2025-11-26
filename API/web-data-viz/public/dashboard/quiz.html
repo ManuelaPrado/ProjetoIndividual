@@ -30,12 +30,13 @@
             <div class="btn-nav-white">
                 <a href="dashboard.html">
                 <h3>Gráfico</h3>
-            </div>
-        </a>
+            </a></div>
+        
 
             <div class="btn-logout" onclick="limparSessao()">
+                 <a href="../login.html">
                 <h3>Sair</h3>
-            </div>
+           </a> </div>
 
         </div>
     <div id="pontuacaoEJogo" style="width: 90%;">
@@ -465,7 +466,7 @@ function confimarQuiz()
     else if (listaAtual[0]==3) {
         cadastrarQuiz3()
     }
-    else{
+    else if(listaAtual[0]==4){
         cadastrarQuiz4()
     }
 

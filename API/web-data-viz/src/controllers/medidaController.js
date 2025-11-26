@@ -6,18 +6,16 @@ function registrar(req, res) {
     var idusuario = req.body.idusuarioServer;
     var respostas= req.body.respostaServer;
     var quiz=req.body.quizServer;
-
-    console.log( {axidusuario:idusuario, axresposta:respostas,axquiz:quiz});
     
 
-   if (!idusuario) {
-        return res.status(400).json({ erro: "ID do usuário não undefinied." });
+    if (idusuario == undefined) {
+        res.status(400).send("Seu id está undefined!");
+    } else if (respostas == undefined) {
+        res.status(400).send("Seu pontuação está undefined!");
+    } else if (quiz == undefined) {
+        res.status(400).send("Sua tentativa está undefined!");
     }
-
-    if (! respostas || respostas.length === 0) {
-        return res.status(400).json({ erro: "Lista de respostas undefinied." });
-    }
-
+    else{
     medidaModel.registrar(idusuario, respostas, quiz)
       .then(() => {
             res.status(200).send("Pontuação registrada com sucesso!");
@@ -26,7 +24,7 @@ function registrar(req, res) {
             console.error("Erro ao registrar pontuação:", erro);
             res.status(500).json({ erro: "Erro no servidor." });
         });
-    }
+    }}
 
 function respostaPergunta(req, res) {
 

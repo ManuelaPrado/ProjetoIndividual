@@ -1,14 +1,14 @@
 var database = require("../database/config");
 
-function registrar(idusuario, respostas, quiz) {
+function registrar( respostas, quiz, idusuario) {
     let instrucoesSql = `
-            INSERT INTO pontuacao (id_usuario, acertou, quiz)
-            VALUES (${idusuario}, ${respostas}, ${quiz});
+            INSERT INTO pontuacao ( acertou, quiz, id_usuario)
+            VALUES ( ${respostas}, ${quiz}), ${idusuario};
         `;
 
     console.log("Executando inserts da pontuação:");
 
-    return database.executar(instrucoesSql.join(" "));
+    return database.executar(instrucoesSql);
 }
 
 function respostaPergunta(idusuario) {
