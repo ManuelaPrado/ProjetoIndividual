@@ -123,10 +123,11 @@
             } else {
 
                 console.log("Houve um erro ao tentar realizar o login!");
-
+                cardErro.style.display = "block"
+                mensagem_erro.innerHTML='Esse usuario não existe  '
                 resposta.text().then(texto => {
                     console.error(texto);
-                    finalizarAguardar(texto);
+                    finalizarAguardar(texto); 
                 });
             }
 

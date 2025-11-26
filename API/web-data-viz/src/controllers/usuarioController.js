@@ -1,5 +1,4 @@
 var usuarioModel = require("../models/usuarioModel");
-const { cadastrar } = require("./aquarioController");
 
 
 function autenticar(req, res) {
@@ -18,10 +17,6 @@ function autenticar(req, res) {
                     if (resultadoAutenticar.length == 1) {
                         console.log(resultadoAutenticar);
 
-                        usuarioModel.autenticar(email, senha)
-                            .then( function (resultadoAutenticar) {
-                                if (
-                                    resultadoAutenticar.length > 0) {
                                     res.json({
                                         idusuario: resultadoAutenticar[0].idusuario,
                                         email: resultadoAutenticar[0].email,
@@ -74,7 +69,7 @@ function cadastrar(req, res) {
                 }
             );
     }
-}} )}
+}
 
 
 module.exports = {
