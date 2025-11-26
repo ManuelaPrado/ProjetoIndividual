@@ -102,7 +102,9 @@
   if (emailVar == "") erros +=" O email é obrigatório.<br>";
   if (senhaVar == "") erros +=" A senha é obrigatória. <br>";
   if (confirmacaoSenhaVar == "") erros +=" A confirmação de senha é obrigatória.<br>";
-  if (senhaVar != confirmacaoSenhaVar) erros +=" As senhas não coincidem.<br>"; 
+  if (senhaVar != confirmacaoSenhaVar) erros +=" As senhas não coincidem.<br>";
+  if(emailVar.indexOf('@') === -1 || emailVar.indexOf('.') === -1 ) erros+='Email invalido'
+  
   if(vtemail.includes(emailVar)) erros+='Esse email ja foi cadastrado'
       if (erros!=''){
     cardErro.style.display = "block";
