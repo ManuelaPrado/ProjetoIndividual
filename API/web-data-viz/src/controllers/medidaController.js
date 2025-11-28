@@ -27,15 +27,17 @@ function registrar(req, res) {
         });
     }}
 
-function respostaPergunta(req, res) {
+function MedidasKpi(req, res) {
 
-    const acertou = 7;
+    const tentativa = 2;
+
 
     var idusuario = req.params.idusuario;
+    var pontuacao= req.params.pontuacao
 
-    console.log(`Recuperando as ultimas ${acertou} medidas`);
+    console.log(`Recuperando as ultimas ${tentativa} medidas`);
 
-    medidaModel.respostasPergunta(idusuario, acertou).then(function (resultado) {
+    medidaModel.MedidasKpi(idusuario, pontuacao, tentativa).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -49,14 +51,14 @@ function respostaPergunta(req, res) {
 }
 
 
-function respostaEmTempoReal(req, res) {
+function MedidasGrafico(req, res) {
 
     var idusuario = req.params.idusuario;
 
     console.log(`Recuperando medidas em tempo real`);
 
-    medidaModel.respostaEmTempoReal(idusuario).then(function (resultado) {
-        if (resultado.length > 0) {
+    medidaModel.MedidasGrafico(idusuario).then(function (resultado) {
+           if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
             res.status(204).send("Nenhum resultado encontrado!")
@@ -69,8 +71,8 @@ function respostaEmTempoReal(req, res) {
 }
 
 module.exports = {
-    respostaPergunta,
-    respostaEmTempoReal, 
+    MedidasKpi,
+    MedidasGrafico, 
     registrar
 
 }

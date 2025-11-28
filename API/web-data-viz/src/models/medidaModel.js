@@ -11,33 +11,30 @@ function registrar( pontuacao, tentativa , idusuario) {
     return database.executar(instrucoesSql);
 }
 
-function respostaPergunta(idusuario) {
+function MedidasKpi(idusuario) {
 
     var instrucaoSql = `
         SELECT 
-            u.nome,
-            SUM(p.acertou) AS acertos,
-            COUNT(*) - SUM(p.acertou) AS erros,
-            COUNT(*) AS total
-        FROM pontuacao p
-        JOIN usuario u ON u.idusuario = p.id_usuario
-        WHERE p.id_usuario = ${idusuario}
-        GROUP BY u.idusuario, u.nome;
+  pontuacao,
+    ROUND((pontuacao / 5) * 100, 2) AS porcentagem_acertos,
+    tentativas
+FROM pontuacao
+WHERE id_usuario = ${idusuario}
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-function respostaEmTempoReal(idusuario) {
+function  MedidasGrafico(idusuario) {
 
     var instrucaoSql = `
-        SELECT 
-            p.data_resposta AS tempo
-        FROM pontuacao p 
-        JOIN usuario u ON u.idusuario = p.id_usuario
-        WHERE p.id_usuario = ${idusuario}
-        ORDER BY p.data_resposta;
+               SELECT 
+  pontuacao,
+    pontuacao - 5 as Repostas_erradas,
+    tentativas
+FROM pontuacao
+WHERE id_usuario = ${idusuario}
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -45,7 +42,7 @@ function respostaEmTempoReal(idusuario) {
 }
 
 module.exports = {
-    respostaPergunta,
-    respostaEmTempoReal,
+    MedidasGrafico,
+    MedidasKpi,
     registrar
 }

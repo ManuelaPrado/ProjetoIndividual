@@ -58,16 +58,16 @@
 
            <section class="car">
       <div class="cartao"  id="cardErros">
-        <p>Porcentual de erro</p>
-        <h2></h2>
-      </div>
-      <div class="cartao">
         <p>Porcentual de acertos</p>
-        <h2 class="quatro"  id="cardAcertos">0</h2>
+        <h2 id="porcent"></h2>
       </div>
       <div class="cartao">
-        <p>Pontualção</p>
-        <h2 class="quatro">0</h2>
+        <p>Quantidade de acertos</p>
+        <h2   id="cardAcertos"></h2>
+      </div>
+      <div class="cartao">
+        <p>Numero de tentativas</p>
+        <h2 id="tent"></h2>
       </div>
     </section>
 
@@ -75,7 +75,7 @@
      5% -1% 55%; ">Grafico</h1>
     <div style="display: flex;">
         <div style="width: 87%; justify-content: center; background-color: white; margin: 2% 5% 0% 25%; border-radius: 40px; ">
-            <canvas id="sensorAnalogico"></canvas>
+            <canvas id="graf"></canvas>
         </div>
        
     </div>
@@ -104,18 +104,18 @@
 
     let proximaAtualizacao;
 
-    window.onload = exibirAquariosDoUsuario();
+
 
     function obterDadosGrafico(){
         var idusuario = sessionStorage.ID_USUARIO;
 
-        fetch(`/medidas/kpis/${idusuario}`, { cache: 'no-store' }).then(function (response) {
+        fetch(`/medidas/cards/${idusuario}`, { cache: 'no-store' }).then(function (response) {
             if (response.ok) {
                 response.json().then(function (resposta) {
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
                     resposta.reverse();
 
-                    plotarKpi(resposta)
+                    plotaKpi(resposta)
 
                 });
             } else {
@@ -146,43 +146,15 @@
 
  } 
 
-    function alterarTitulo(idusuario) {
-        var tituloAquario = document.getElementById(`tituloAquario${idusuario}`)
-        var descricao = JSON.parse(sessionStorage.AQUARIOS).find(item => item.id == idusuario).descricao;
-        tituloAquario.innerHTML = "Últimas medidas de Temperatura e Umidade do <span style='color: #e6005a'>" + descricao + "</span>"
+     function plotaKpi(resposta) {
+        console.log('iniciando plotagem do kpis...');
+
+        cardAcertos.innerHTML = resposta[0].pontuacao;
+        porcent.innerHTML = `${resposta[0].porcentagem_acertos} %`;
+        tent.innerHTML = resposta[0].quantidade_tentativas;
+
     }
 
-    function exibirAquario(idusuario) {
-        let todosOsGraficos = JSON.parse(sessionStorage.AQUARIOS);
-
-        for (i = 0; i < todosOsGraficos.length; i++) {
-            // exibindo - ou não - o gráfico
-            if (todosOsGraficos[i].id != idusuario) {
-                let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].id}`)
-                if (elementoAtual.classList.contains("display-block")) {
-                    elementoAtual.classList.remove("display-block")
-                }
-                elementoAtual.classList.add("display-none")
-
-                // alterando estilo do botão
-                let btnAtual = document.getElementById(`btnAquario${todosOsGraficos[i].id}`)
-                if (btnAtual.classList.contains("btn-pink")) {
-                    btnAtual.classList.remove("btn-pink")
-                }
-                btnAtual.classList.add("btn-white")
-            }
-        }
-
-        // exibindo - ou não - o gráfico
-        let graficoExibir = document.getElementById(`grafico${idusuario}`)
-        graficoExibir.classList.remove("display-none")
-        graficoExibir.classList.add("display-block")
-
-        // alterando estilo do botão
-        let btnExibir = document.getElementById(`btnAquario${idusuario}`)
-        btnExibir.classList.remove("btn-white")
-        btnExibir.classList.add("btn-pink")
-    }
 
     // O gráfico é construído com três funções:
     // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
@@ -195,7 +167,7 @@
 
     //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
     //     Para ajustar o "select", ajuste o comando sql em src/models
-    function obterDadosGrafico(idusuario) {
+   /* function obterDadosGrafico(idusuario) {
 
         alterarTitulo(idusuario)
 
@@ -220,7 +192,7 @@
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
             });
     }
-
+*/
     // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
     // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
     // A função *plotarGrafico* também invoca a função *atualizarGrafico*
@@ -235,19 +207,13 @@
         let dados = {
             labels: labels,
             datasets: [{
-                label: 'Umidade',
+                label: 'Conhecimento',
                 data: [],
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1
             },
-            {
-                label: 'Temperatura',
-                data: [],
-                fill: false,
-                borderColor: 'rgb(199, 52, 52)',
-                tension: 0.1
-            }]
+        ]
         };
 
         console.log('----------------------------------------------')
@@ -258,8 +224,8 @@
         for (i = 0; i < resposta.length; i++) {
             var registro = resposta[i];
             labels.push(registro.momento_grafico);
-            dados.datasets[0].data.push(registro.umidade);
-            dados.datasets[1].data.push(registro.temperatura);
+            dados.datasets[0].data.push(registro.quantidade);
+
         }
 
         console.log('----------------------------------------------')
@@ -272,17 +238,17 @@
 
         // Criando estrutura para plotar gráfico - config
         const config = {
-            type: 'line',
+            type: 'bar',
             data: dados,
         };
 
         // Adicionando gráfico criado em div na tela
         let myChart = new Chart(
-            document.getElementById(`myChartCanvas${idusuario}`),
+            document.getElementById(`graf`),
             config
         );
 
-        setTimeout(() => atualizarGrafico(idusuario, dados, myChart), 2000);
+      //  setTimeout(() => atualizarGrafico(idusuario, dados, myChart), 2000);
     }
 
 
