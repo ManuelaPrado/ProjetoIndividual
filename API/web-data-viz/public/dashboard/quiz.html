@@ -82,7 +82,7 @@
 
             <div id="botoes" class="flex-colunar padding-8">
                 
-                <div id="submeter">
+                <div id="submete">
                 <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button></div>
                  <div id="prox">
                 <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button></div>
@@ -142,262 +142,52 @@
    ]
 
 
-/*   const listaDeQuestoes1 = [
-    {
-        pergunta: "Qual é o nome do time principal da história?",
-        alternativaA: "Nekoma",
-        alternativaB: "Aoba Johsa",
-        alternativaC: "Karasuno",
-        alternativaD: "Shiratorizawa",
-        alternativaCorreta: "alternativaC"
-    },
-    {
-        pergunta: "Qual é a posição do Kageyama no time?",
-        alternativaA: "Ponteiro",
-        alternativaB: "Central",
-        alternativaC: "Oposto",
-        alternativaD: "Levantador",
-        alternativaCorreta: "alternativaD"
-    },
-    {
-        pergunta: "Por que Hinata decide jogar vôlei mesmo sendo baixo?",
-        alternativaA: "Para impressionar um amigo",
-        alternativaB: "Porque causa do Pequeno Gigante",
-        alternativaC: "O Porque era obrigado na escola",
-        alternativaD: "Por hobbby ",
-        alternativaCorreta: "alternativaB"
-    },
-     {
-        pergunta: "Contra qual time o Karasuno perde no torneio intercolegial da 1ª temporada?",
-        alternativaA: "Nekoma",
-        alternativaB: "Seijoh",
-        alternativaC: "Shiratorizawa",
-        alternativaD: "Date Tech",
-        alternativaCorreta: "alternativaB"
-    },
-     {
-        pergunta: "Por que Hinata decide jogar vôlei mesmo sendo baixo?",
-        alternativaA: "Exigia demais dos colegas",
-        alternativaB: "Era o melhor do Japão",
-        alternativaC: "Jogava muito bem",
-        alternativaD: "Não sabia trabalhar em equipe",
-        alternativaCorreta: "alternativaA"
-    },
-  
-];
+    // variáveis globais    
+    var idUsuario = sessionStorage.ID_USUARIO
+    let numeroDaQuestaoAtual = 0
+    let pontuacaoFinal = 0
+    let tentativa = 0
+    let tentativaIncorreta = 0
+    let certas = 0
+    let erradas = 0
+    let quantidadeDeQuestoes = listaDeQuestoes.length
+    // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
 
-const listaDeQuestoes2 = [
-    {
-        pergunta: "Onde o Karasuno treina durante boa parte da 2ª temporada?",
-        alternativaA: "Torneio da Primavera",
-        alternativaB: "Colégio Fukurōdani",
-        alternativaC: "Camp de Tóquio com Nekoma",
-        alternativaD: "Shiratorizawa",
-        alternativaCorreta: "alternativaC"
-    },
-    {
-        pergunta: "Quem é o levantador do Aoba Johsai?",
-        alternativaA: "Kyotani",
-        alternativaB: "Hanamaki",
-        alternativaC: "Iwaizumi",
-        alternativaD: "Oikawa",
-        alternativaCorreta: "alternativaD"
-    },
-    {
-        pergunta: "Qual jogador começa a se destacar com leitura de bloqueio na 2ª temporada?",
-        alternativaA: "Tsukishima",
-        alternativaB: "Tanaka",
-        alternativaC: "Yamaguchi",
-        alternativaD: "Suga",
-        alternativaCorreta: "alternativaA"
-    },
-     {
-        pergunta: "Qual habilidade Hinata desenvolve no acampamento?",
-        alternativaA: "Percepção de bloqueio",
-        alternativaB: "Levantamentos longos",
-        alternativaC: "Defender melhor como líbero",
-        alternativaD: "Saque flutuante",
-        alternativaCorreta: "alternativaA"
-    },
-     {
-        pergunta: "Qual técnica Tsukishima desenvolve no treino, mostrando evolução?",
-        alternativaA: "Recepção de saque",
-        alternativaB: "Salto flutuante",
-        alternativaC: "Levantamento por trás",
-        alternativaD: "Bloqueio atrasado para ler o ataque",
-        alternativaCorreta: "alternativaD"
+    function onloadEsconder() {
+        document.getElementById('jogo').style.display = "none"
     }
-];
 
+    function iniciarQuiz() {
+        tentativa++
 
-const listaDeQuestoes3 = [
-    {
-        pergunta: "Qual é o nome do Ace da Shiratorizawa?",
-        alternativaA: "Goshiki",
-        alternativaB: "Semi",
-        alternativaC: "Ushijima",
-        alternativaD: "Reon",
-        alternativaCorreta: "alternativaC"
-    },
-    {
-        pergunta: "Qual é a especialidade da Shiratorizawa?",
-        alternativaA: "Defesa rápida",
-        alternativaB: "Passes curtos",
-        alternativaC: "Estratégias psicológicas",
-        alternativaD: "Força bruta e ataques potentes",
-        alternativaCorreta: "alternativaD"
-    },
-    {
-        pergunta: "Quem lidera o Karasuno emocionalmente durante a partida contra a Shiratorizawa?",
-        alternativaA: "Daichi",
-        alternativaB: "Hinata",
-        alternativaC: "Suki",
-        alternativaD: "Tanaka",
-        alternativaCorreta: "alternativaA"
-    },
-     {
-        pergunta: "Qual jogador do Karasuno realiza um bloqueio crucial no final da temporada?",
-        alternativaA: "Nishinoya",
-        alternativaB: "Tsukishima",
-        alternativaC: "Asahi",
-        alternativaD: "Kageyama",
-        alternativaCorreta: "alternativaB"
-    },
-     {
-        pergunta: "Qual time o Karasuno enfrenta após vencer a Shiratorizawa?",
-        alternativaA: "Fukurodani",
-        alternativaB: "Vai para o Nacional",
-        alternativaC: "Nekoma",
-        alternativaD: "Aoba Johsai",
-        alternativaCorreta: "alternativaB"
+        document.getElementById('jogo').style.display = "flex"
+        document.getElementById('btnQuiz1').style.display = "none"
+
+        document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes
+
+        preencherHTMLcomQuestaoAtual(0)
+
+        btnSubmeter.disabled = false
+        btnProx.disabled = true
+        // btnConcluir.disabled = true
     }
-];
 
-
-const listaDeQuestoes4 = [
-    {
-        pergunta: "Qual é o time contra o qual o Karasuno faz seu primeiro jogo no Nacional?",
-        alternativaA: "Inarizaki",
-        alternativaB: "Kamomedai",
-        alternativaC: "Tsubakihara",
-        alternativaD: "Nekoma",
-        alternativaCorreta: "alternativaC"
-    },
-    {
-        pergunta: "Qual habilidade Hinata começa a dominar na 4ª temporada?",
-        alternativaA: "Salto giratório",
-        alternativaB: "Saque poderoso",
-        alternativaC: "Recepção",
-        alternativaD: "Levantar com precisão",
-        alternativaCorreta: "alternativaC"
-    },
-    {
-        pergunta: "O que Inarizaki faz para desestabilizar o Karasuno durante o jogo?",
-        alternativaA: "Grita insultos",
-        alternativaB: "Finge lesões",
-        alternativaC: "Usa técnicas ilegaisa",
-        alternativaD: "Manipula o ritmo da torcidaumu",
-        alternativaCorreta: "alternativaD"
-    },
-     {
-        pergunta: "O que Kageyama treina no acampamento da Seleção Juvenil?",
-        alternativaA: "Distribuição variada de levantamentos",
-        alternativaB: "Saque flutuante",
-        alternativaC: "Velocidade de deslocamento",
-        alternativaD: "Leitura de bloqueio",
-        alternativaCorreta: "alternativaA"
-    },
-     {
-        pergunta: "Quem surpreende Kageyama durante o treino da Seleção Juvenil?",
-        alternativaA: "Hinata",
-        alternativaB: "Ushijima",
-        alternativaC: "Bokuto",
-        alternativaD: "Sakusa",
-        alternativaCorreta: "alternativaD"
+    function preencherHTMLcomQuestaoAtual(index) {
+        habilitarAlternativas(true)
+        const questaoAtual = listaDeQuestoes[index]
+        numeroDaQuestaoAtual = index
+        console.log("questaoAtual")
+        console.log(questaoAtual)
+        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1 // ajustando porque o index começa em 0
+        document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
+        document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.alternativaA;
+        document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB;
+        document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.alternativaC;
+        document.getElementById("labelOpcaoQuatro").innerHTML = questaoAtual.alternativaD;
     }
-];*/
 
-// VARIÁVEIS GLOBAIS
-
- b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
-let listaAtual = [];
-let numeroDaQuestaoAtual = 0;
-let pontuacaoFinal = 0;
-let tentativas=0
-let tentativaIncorreta=0
-let certas = 0;
-let erradas = 0;
-let quantidadeDeQuestoes = listaDeQuestoes.length;
-// let numeroQuiz = 0;
-
-let resposta = [];
-
-
-
-
-   
-
-
-function onloadEsconder() {
-    jogo.style.display = "none";
-}
-/*
-// INICIAR QUIZ 1
-function iniciarQuiz1() {
-    listaAtual = listaDeQuestoes1;
-    numeroQuiz=1
-    iniciarQuiz();
-}
-
-// INICIAR QUIZ 2
-function iniciarQuiz2() {
-    numeroQuiz=2
-    listaAtual = listaDeQuestoes2;
-    iniciarQuiz();
-}
-function iniciarQuiz3() {
-    numeroQuiz=3
-    listaAtual = listaDeQuestoes3;
-    iniciarQuiz();
-}
-function iniciarQuiz4() {
-    numeroQuiz=4
-    listaAtual = listaDeQuestoes4;
-    iniciarQuiz();
-}*/
-
-function iniciarQuiz() {
-    tentativas++
-
-    document.getElementById('jogo').style.display = "flex"
-    document.getElementById("btnQuiz1").style.display = "none";
- /*   document.getElementById("btnQuiz2").style.display = "none";
-    document.getElementById("btnQuiz3").style.display = "none";
-    document.getElementById("btnQuiz4").style.display = "none";*/
-
-
-    preencherHTMLcomQuestaoAtual(0);
-
-    btnSubmeter.disabled = false;
-    btnProx.disabled = true;
-}
-
-
-function preencherHTMLcomQuestaoAtual(index) {
-    habilitarAlternativas(true);
-    const questaoAtual = listaDeQuestoes[index];
-    numeroDaQuestaoAtual = index  
-    spanNumeroDaQuestaoAtual.innerHTML = index + 1;
-    spanQuestaoExibida.innerHTML = questaoAtual.pergunta;
-    labelOpcaoUm.innerHTML = questaoAtual.alternativaA;
-    labelOpcaoDois.innerHTML = questaoAtual.alternativaB;
-    labelOpcaoTres.innerHTML = questaoAtual.alternativaC;
-    labelOpcaoQuatro.innerHTML = questaoAtual.alternativaD;
-}
-
-// ENVIAR RESPOSTA
-function submeter() {
-    const options = document.getElementsByName("option");
+    function submeter() {
+        const options = document.getElementsByName("option"); // recupera alternativas no html
 
         let hasChecked = false
         for (let i = 0; i < options.length; i++) {
@@ -406,21 +196,20 @@ function submeter() {
                 break
             }
         }
+
         if (!hasChecked) {
             alert("Não há alternativas escolhidas. Escolha uma opção.")
         } else {
-    btnSubmeter.disabled = true;
-    btnProx.disabled = false;
-        
-    habilitarAlternativas(false);
+            btnSubmeter.disabled = true
+            btnProx.disabled = false
 
-    checarResposta();
+            habilitarAlternativas(false)
+
+            checarResposta()
         }
+    }
 
-}
-
-// BLOQUEAR/DESBLOQUEAR RADIO
- function habilitarAlternativas(trueOrFalse) {
+    function habilitarAlternativas(trueOrFalse) {
         let opcaoEscolhida = trueOrFalse ? false : true
 
         primeiraOpcao.disabled = opcaoEscolhida
@@ -430,79 +219,56 @@ function submeter() {
 
     }
 
-// AVANÇAR PARA PRÓXIMA
-function avancar() {
-    btnProx.disabled = true;
-    btnSubmeter.disabled = false
-       limparCoresBackgroundOpcoes();   
-    desmarcarRadioButtons();
-   
-if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
-            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
-        
-        } else {
-           jogo.innerHTML = `
-                <div id="botoe" class="flex-colunar padding-8">
-                    <h2>Questionário Concluído</h2>
-                    <div id="tentar" >
-                        <button onclick="window.location.href='./quiz.html'">Tentar novamente</button>
-                          
-                    </div>
-                </div>
-            `;
-         confimarQuiz()
-       
- 
-    }
-   
-}
+    function avancar() {
+        btnProx.disabled = true
+        btnSubmeter.disabled = false
+  limparCoresBackgroundOpcoes()
+        desmarcarRadioButtons()
 
-function confimarQuiz(){
- fetch("/medidas/registrar", {
+        if (numeroDaQuestaoAtual <= quantidadeDeQuestoes - 1) {
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+        } else {
+            submete.innerHTML=''
+            prox.innerHTML = 'Coletando Resultados...'
+            CadastrarResposta()
+          
+        }
+    }
+
+    function CadastrarResposta() {
+        fetch("/medidas/registrar", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                 idusuarioServer: sessionStorage.ID_USUARIO,
-               // respostaServer: resposta[0],
-                //quizServer: numeroQuiz,
                 pontuacaoServer: pontuacaoFinal,
-                tentativaServer: tentativas,
-               
+                tentativaServer: tentativa,
+                idusuarioServer: idUsuario
             }),
         })
-     .then(res => {
-        if(res.ok){
-            console.log("Pontuação salva!");
-        } else {
-            console.warn("Erro no insert:", res.status);
-        }
-    })
-    .catch(err => console.error("ERRO FETCH:", err));
+        setTimeout(function () {
+            window.location = "dashboard.html";
+        }, 3000);
+    }
 
-    
-            
-}
-
-
-// CHECAR RESPOSTA
-function checarResposta() {
-    const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual] // questão atual 
+    function checarResposta() {
+        const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual] // questão atual 
         const respostaQuestaoAtual = questaoAtual.alternativaCorreta // qual é a resposta correta da questão atual
 
         const options = document.getElementsByName("option"); // recupera alternativas no html
 
         let alternativaCorreta = null // variável para armazenar a alternativa correta
 
-          options.forEach((option) => {
+        options.forEach((option) => {
             if (option.value === respostaQuestaoAtual) {
                 console.log("alternativaCorreta está no componente: " + alternativaCorreta)
                 alternativaCorreta = option.labels[0].id
             }
         })
 
-     options.forEach((option) => {
+        // verifica se resposta assinalada é correta
+        options.forEach((option) => {
             if (option.checked === true && option.value === respostaQuestaoAtual) {
                 document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
                 pontuacaoFinal++
@@ -517,9 +283,8 @@ function checarResposta() {
                 erradas++
                 numeroDaQuestaoAtual++
             }
-
-    });
-}
+        })
+    }
 
     function limparCoresBackgroundOpcoes() {
         const options = document.getElementsByName("option");
@@ -535,115 +300,5 @@ function checarResposta() {
             options[i].checked = false;
         }
     }
-
-// FINALIZA O QUIZ
-/*
-function confimarQuiz()
-{
-
-    if (listaAtual[0] == 1) {
-        cadastrarQuiz()
-    }
-    else if (listaAtual[0]==2) {
-        cadastrarQuiz2()
-    }
-    else if (listaAtual[0]==3) {
-        cadastrarQuiz3()
-    }
-    else if(listaAtual[0]==4){
-        cadastrarQuiz4()
-    }
-
-}
-
-
-
-
-
-function cadastrarQuiz(){
-       fetch("/medidas/registrar", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            idusuarioServer: sessionStorage.ID_USUARIO,
-            respostaServer: certas,
-            quizServer: numeroQuiz
-        })
-    })
-    .then(resposta => {
-        if (!resposta.ok) {
-            console.error("Erro ao registrar pontuação");
-        } else {
-            console.log("Pontuação registrada com sucesso");
-        }
-    })
-    .catch(e => console.error("Erro fetch:", e));
-}
-
-
-
-function cadastrarQuiz2(){
-       fetch("/medidas/registrar", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            idusuarioServer: sessionStorage.ID_USUARIO,
-            respostaServer: certas,
-            quizServer: numeroQuiz
-        })
-    })
-    .then(resposta => {
-        if (!resposta.ok) {
-            console.error("Erro ao registrar pontuação");
-        } else {
-            console.log("Pontuação registrada com sucesso");
-        }
-    })
-    .catch(e => console.error("Erro fetch:", e));
-}
-
-
-function cadastrarQuiz3(){
-       fetch("/medidas/registrar", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            idusuarioServer: sessionStorage.ID_USUARIO,
-            respostaServer: certas,
-            quizServer: numeroQuiz
-        })
-    })
-    .then(resposta => {
-        if (!resposta.ok) {
-            console.error("Erro ao registrar pontuação");
-        } else {
-            console.log("Pontuação registrada com sucesso");
-        }
-    })
-    .catch(e => console.error("Erro fetch:", e));
-}
-
-
-function cadastrarQuiz4(){
-       fetch("/medidas/registrar", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            idusuarioServer: sessionStorage.ID_USUARIO,
-            respostaServer: certas,
-            quizServer: numeroQuiz 
-        })
-    })
-    .then(resposta => {
-        if (!resposta.ok) {
-            console.error("Erro ao registrar pontuação");
-        } else {
-            console.log("Pontuação registrada com sucesso");
-        }
-    })
-    .catch(e => console.error("Erro fetch:", e));
-}
-
-*/
-
+ 
 </script>

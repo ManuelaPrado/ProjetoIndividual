@@ -4,27 +4,33 @@ var medidaModel = require("../models/medidaModel");
 
 function registrar(req, res) {
     var idusuario = req.body.idusuarioServer;
-    //var respostas= req.body.respostaServer;
     var pontuacao=req.body.pontuacaoServer
     var tentativa=req.body.tentativaServer
     
 
-    if (idusuario == undefined) {
+ 
+    if (id == undefined) {
         res.status(400).send("Seu id está undefined!");
     } else if (pontuacao == undefined) {
         res.status(400).send("Seu pontuação está undefined!");
     } else if (tentativa == undefined) {
         res.status(400).send("Sua tentativa está undefined!");
-    }
-    else{
-    medidaModel.registrar (pontuacao, tentativa , idusuario)
-      .then(() => {
-            res.status(200).send("Pontuação registrada com sucesso!");
-        })
-        .catch(erro => {
-            console.error("Erro ao registrar pontuação:", erro);
-            res.status(500).json({ erro: "Erro no servidor." });
-        });
+    } else {
+        madidaModel.registrar(pontuacao, tentativa, idusuario)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao realizar o cadastro! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
     }}
 
 function MedidasKpi(req, res) {
@@ -71,8 +77,9 @@ function MedidasGrafico(req, res) {
 }
 
 module.exports = {
-    MedidasKpi,
-    MedidasGrafico, 
-    registrar
+     registrar,
+     MedidasKpi,
+    MedidasGrafico
+   
 
 }

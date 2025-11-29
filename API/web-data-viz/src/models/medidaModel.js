@@ -20,6 +20,7 @@ function MedidasKpi(idusuario) {
     tentativas
 FROM pontuacao
 WHERE id_usuario = ${idusuario}
+group by tentativas, portuacao 
     `;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
