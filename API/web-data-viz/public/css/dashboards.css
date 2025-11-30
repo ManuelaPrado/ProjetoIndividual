@@ -75,15 +75,23 @@ body {
 }
 
 .cartao h2 {
-margin: 0 43%;
-    color: rgb(251, 36, 36);
+
+    color: #fc9250;
     font-size: 28px;
 }
 
-.cartao .quatro {
-    color: #00796b;
-    font-size: 28px;
+#porcent{
+margin: 0 33.5%;
 }
+
+#cardAcertos{
+margin:0 48%;
+}
+
+#tent{
+margin:0 46%;
+}
+
 
 /*PAGINA DOS GRÁFICOS*/
 
@@ -138,11 +146,7 @@ margin: 0 43%;
   font-size: 1.2rem;
 }
 
-/*
-.hello h3 span {
-  font-weight: 800;
-}
-*/
+
 .btn-nav {
   width: 60%;
   color: white;
@@ -168,13 +172,7 @@ margin: 0 43%;
   margin: 0;
 }
 
-/*
-.btn-nav h3,
-.btn-logout h3 {
-  margin: 0;
-  padding: 0;
-}
-*/
+
 .btn-logout {
   width: 30%;
   background-color: #ff7043;

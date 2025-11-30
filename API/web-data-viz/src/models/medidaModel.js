@@ -15,7 +15,7 @@ function MedidasKpi(idusuario) {
 
     var instrucaoSql = `
         SELECT 
-  pontuacao,
+  pontuacao as Respostas_certa,
     ROUND((pontuacao / 5) * 100, 2) AS porcentagem_acertos,
     (SELECT COUNT(*) FROM pontuacao WHERE id_usuario = ${idusuario}) AS quantidade_tentativas
 FROM pontuacao
