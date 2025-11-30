@@ -75,7 +75,7 @@
      5% -1% 55%; ">Grafico</h1>
     <div style="display: flex;">
         <div style="width: 87%; justify-content: center; background-color: white; margin: 2% 5% 0% 25%; border-radius: 40px; ">
-            <canvas id="graf"></canvas>
+            <canvas id="graf" style="height: 250%;"></canvas>
         </div>
        
     </div>
@@ -83,16 +83,6 @@
         <div class="dash">
             <div id="alerta">
             </div>
-
-            <div class="btns-dash" id="btnquiz">
-      <div class="chart-placeholder">
-                 <canvas id="graficoSetores" width="800" height="340"></canvas>
-            </div>
-            <div id="graficos">
-            </div>
-        </div>
-    </div>
-
 
 </body>
 
@@ -130,6 +120,8 @@ function obterDadosGrafico() {
            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
         });
 
+
+
     fetch(`/medidas/grafico/${idusuario}`, { cache: 'no-store' })
         .then(function (response) {
             if (response.ok) {
@@ -154,10 +146,13 @@ function obterDadosGrafico() {
 
 function plotarKpi(resposta) {
 
-    cardAcert.innerHTML =pontuacao ;
-    ax_porcent.innerHTML =`${porcentagem_acertos} %`;
-    ax_tent.innerHTML = quantidade_tentativas;
+    const resp=resposta[0]
 
+    cardAcert.innerHTML =resp.pontuacao ;
+    ax_porcent.innerHTML =`${resp.porcentagem_acertos} %`;
+    ax_tent.innerHTML = resp.quantidade_tentativas;
+
+    console.log("KPIs recebidas da API:", resposta);
 }
 
 
@@ -167,15 +162,15 @@ function plotarGrafico(resposta) {
     console.log("Iniciando plotagem...");
 
     let labels = [];
-    let dataCertas = [];
-    let dataErradas = [];
+    let resCertas = [];
+    let resErradas = [];
 
     for (let i = 0; i < resposta.length; i++) {
 
         let registro = resposta[i];
-        labels.push(registro.tentativas);
-        dataCertas.push(registro.Respostas_certa );
-        dataErradas.push(registro.Repostas_erradas );
+        labels.push(registro.data_resposta);
+        resCertas.push(registro.Respostas_certa);
+        resErradas.push(registro.Repostas_erradas);
     }
 
 
@@ -187,11 +182,17 @@ function plotarGrafico(resposta) {
             datasets: [
                 {
                     label: 'Certas',
-                    data: dataCertas
+                    data: resCertas,
+                    backgroundColor: [
+                    'rgb(72, 202, 89)'
+                ]
                 },
                 {
                     label: 'Erradas',
-                    data: dataErradas
+                    data: resErradas,
+                    backgroundColor: [
+                    'rgb(227, 76, 76)'
+                ]
                 }
             ]
         },
@@ -206,6 +207,12 @@ function plotarGrafico(resposta) {
             }
         }
     };
+
+    while (labels.length > 5){
+        labels.shift();
+        resCertas.shift()
+        resErradas.shift()
+    }
 
    
 

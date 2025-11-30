@@ -35,7 +35,7 @@ function registrar(req, res) {
 
 function MedidasKpi(req, res) {
 
-    const limite_linhas= 5;
+    const limite_linhas= 1;
 
     var idusuario = req.params.idusuario;
 
