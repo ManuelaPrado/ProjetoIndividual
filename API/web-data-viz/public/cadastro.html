@@ -99,12 +99,13 @@
 
     // Verificando se há algum campo em branco
    if (nomeVar == "") erros +=" O nome é obrigatório.<br>";
-  if (emailVar == "") erros +=" O email é obrigatório.<br>";
+  
   if (senhaVar == "") erros +=" A senha é obrigatória. <br>";
   if (confirmacaoSenhaVar == "") erros +=" A confirmação de senha é obrigatória.<br>";
   if (senhaVar != confirmacaoSenhaVar) erros +=" As senhas não coincidem.<br>";
- 
-
+  if(vtemail.includes(emailVar)) erros+='Esse email ja foi cadastrado'
+if (emailVar == "") erros +=" O email é obrigatório.<br>";
+else if(emailVar != ""){
   let arroba = false;
   let ponto = false;
 
@@ -130,8 +131,9 @@ if (ponto == false) {
     erros += "O email deve conter um ponto (.) depois do '@'.<br>";
 }
 
-  
-  if(vtemail.includes(emailVar)) erros+='Esse email ja foi cadastrado'
+}
+
+
       if (erros!=''){
     cardErro.style.display = "block";
       mensagem_erro.innerHTML =

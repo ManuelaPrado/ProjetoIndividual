@@ -33,7 +33,7 @@ function  MedidasGrafico(idusuario) {
                SELECT 
   pontuacao as Respostas_certa,
    5 - pontuacao as Repostas_erradas,
-     (SELECT COUNT(*) FROM resposta WHERE id_usuario = ${idusuario}) AS quantidade_tentativas
+     tentativas
 FROM pontuacao
 WHERE id_usuario = ${idusuario}
     `;
