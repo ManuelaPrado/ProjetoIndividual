@@ -103,7 +103,33 @@
   if (senhaVar == "") erros +=" A senha é obrigatória. <br>";
   if (confirmacaoSenhaVar == "") erros +=" A confirmação de senha é obrigatória.<br>";
   if (senhaVar != confirmacaoSenhaVar) erros +=" As senhas não coincidem.<br>";
-  if(emailVar.indexOf('@') === -1 || emailVar.indexOf('.') === -1 ) erros+='Email invalido'
+ 
+
+  let arroba = false;
+  let ponto = false;
+
+for (let i = 0; i < emailVar.length; i++) {
+
+    // encontrou o @ pela primeira vez
+    if (emailVar[i] === '@' && arroba === false) {
+        arroba = true;
+        continue;
+    }
+
+    // depois que o @ foi encontrado, procurar ponto
+    if (arroba && emailVar[i] === '.') {
+        ponto = true;
+    }
+}
+
+// Regras finais
+if (arroba == false) {
+    erros += "O email deve conter '@'.<br>";
+}
+if (ponto == false) {
+    erros += "O email deve conter um ponto (.) depois do '@'.<br>";
+}
+
   
   if(vtemail.includes(emailVar)) erros+='Esse email ja foi cadastrado'
       if (erros!=''){
